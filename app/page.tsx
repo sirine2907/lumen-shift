@@ -1,3 +1,4 @@
+import { CodeSnippet } from "@/components/code-snippet";
 import { Demo } from "@/components/demo";
 import { Features } from "@/components/features";
 import { Hero } from "@/components/hero";
@@ -11,6 +12,7 @@ export default function Home() {
         <Hero />
         <Demo />
         <Features />
+        <CodeSnippet />
       </main>
     </>
   );
