@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
+import { runThemeTransition } from "@/lib/theme-transition";
 
 export type Theme = "light" | "dark" | "system";
 
@@ -8,7 +9,7 @@ type ThemeContextType = {
   theme: Theme;
   resolvedTheme: "light" | "dark";
   mounted: boolean;
-  setTheme: (theme: Theme) => void;
+  setTheme: (theme: Theme, origin?: HTMLElement | null) => void;
 };
 
 const ThemeContext = createContext<ThemeContextType | null>(null);
@@ -60,16 +61,26 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     return () => media.removeEventListener("change", onChange);
   }, [theme]);
 
-  function setTheme(next: Theme) {
+  function setTheme(next: Theme, origin?: HTMLElement | null) {
     const resolved = next === "system" ? getSystemTheme() : next;
-    applyTheme(resolved);
-    setThemeState(next);
-    setResolvedTheme(resolved);
 
     try {
       if (next === "system") localStorage.removeItem(STORAGE_KEY);
       else localStorage.setItem(STORAGE_KEY, next);
     } catch {}
+
+    const update = () => {
+      applyTheme(resolved);
+      setThemeState(next);
+      setResolvedTheme(resolved);
+    };
+
+    // only animate when the colors actually change
+    if (resolved === resolvedTheme) {
+      update();
+    } else {
+      runThemeTransition(origin, update);
+    }
   }
 
   return (
