@@ -34,13 +34,13 @@ export function ThemeToggle({ className }: { className?: string }) {
       )}
     >
       {mounted && (
-        <AnimatePresence mode="wait" initial={false}>
+        <AnimatePresence initial={false}>
           {isDark ? (
-            <motion.span key="moon" className="flex" {...iconMotion}>
+            <motion.span key="moon" className="absolute inset-0 flex items-center justify-center" {...iconMotion}>
               <Moon className="size-5 text-primary" aria-hidden="true" />
             </motion.span>
           ) : (
-            <motion.span key="sun" className="flex" {...iconMotion}>
+            <motion.span key="sun" className="absolute inset-0 flex items-center justify-center" {...iconMotion}>
               <Sun className="size-5 text-primary" aria-hidden="true" />
             </motion.span>
           )}
