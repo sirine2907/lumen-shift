@@ -2,7 +2,7 @@ import { ArrowDown, Sparkles } from "lucide-react";
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-[90svh] flex-col items-center justify-center px-4 pt-32 pb-16 text-center">
+    <section className="relative flex min-h-[90svh] overflow-hidden flex-col items-center justify-center px-4 pt-32 pb-16 text-center">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute top-1/3 left-1/2 -z-10 size-72 -translate-x-1/2 rotate-45 rounded-[3rem] bg-glow blur-3xl sm:size-[28rem]"
